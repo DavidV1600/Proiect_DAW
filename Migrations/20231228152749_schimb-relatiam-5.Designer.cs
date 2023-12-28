@@ -3,6 +3,7 @@ using Incerc_Site1.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Incerc_Site1.Migrations
 {
     [DbContext(typeof(MyAppContext))]
-    partial class AppContextModelSnapshot : ModelSnapshot
+    [Migration("20231228152749_schimb-relatiam-5")]
+    partial class schimbrelatiam5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,8 +46,6 @@ namespace Incerc_Site1.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("FoodId");
-
-                    b.HasIndex("OriginId");
 
                     b.ToTable("Foods");
                 });
@@ -122,17 +122,6 @@ namespace Incerc_Site1.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Incerc_Site1.Models.Food", b =>
-                {
-                    b.HasOne("Incerc_Site1.Models.Origin", "Origin")
-                        .WithMany()
-                        .HasForeignKey("OriginId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Origin");
                 });
 
             modelBuilder.Entity("Incerc_Site1.Models.Food_Tag", b =>

@@ -3,6 +3,7 @@ using Incerc_Site1.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Incerc_Site1.Migrations
 {
     [DbContext(typeof(MyAppContext))]
-    partial class AppContextModelSnapshot : ModelSnapshot
+    [Migration("20231228131153_addmmIdFoodTag5")]
+    partial class addmmIdFoodTag5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,19 +35,22 @@ namespace Incerc_Site1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Name")
+                        .HasColumnType("int");
 
-                    b.Property<int>("OriginId")
+                    b.Property<int>("OriginsOriginId")
                         .HasColumnType("int");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<string>("imageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("FoodId");
 
-                    b.HasIndex("OriginId");
+                    b.HasIndex("OriginsOriginId");
 
                     b.ToTable("Foods");
                 });
@@ -126,13 +131,13 @@ namespace Incerc_Site1.Migrations
 
             modelBuilder.Entity("Incerc_Site1.Models.Food", b =>
                 {
-                    b.HasOne("Incerc_Site1.Models.Origin", "Origin")
-                        .WithMany()
-                        .HasForeignKey("OriginId")
+                    b.HasOne("Incerc_Site1.Models.Origin", "Origins")
+                        .WithMany("Foods")
+                        .HasForeignKey("OriginsOriginId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Origin");
+                    b.Navigation("Origins");
                 });
 
             modelBuilder.Entity("Incerc_Site1.Models.Food_Tag", b =>
@@ -152,6 +157,11 @@ namespace Incerc_Site1.Migrations
                     b.Navigation("Food");
 
                     b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("Incerc_Site1.Models.Origin", b =>
+                {
+                    b.Navigation("Foods");
                 });
 #pragma warning restore 612, 618
         }

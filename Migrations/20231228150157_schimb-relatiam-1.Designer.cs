@@ -3,6 +3,7 @@ using Incerc_Site1.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Incerc_Site1.Migrations
 {
     [DbContext(typeof(MyAppContext))]
-    partial class AppContextModelSnapshot : ModelSnapshot
+    [Migration("20231228150157_schimb-relatiam-1")]
+    partial class schimbrelatiam1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,15 +39,19 @@ namespace Incerc_Site1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OriginId")
+                    b.Property<int>("OriginsOriginId")
                         .HasColumnType("int");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<string>("imageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("FoodId");
 
-                    b.HasIndex("OriginId");
+                    b.HasIndex("OriginsOriginId");
 
                     b.ToTable("Foods");
                 });
@@ -126,13 +132,13 @@ namespace Incerc_Site1.Migrations
 
             modelBuilder.Entity("Incerc_Site1.Models.Food", b =>
                 {
-                    b.HasOne("Incerc_Site1.Models.Origin", "Origin")
+                    b.HasOne("Incerc_Site1.Models.Origin", "Origins")
                         .WithMany()
-                        .HasForeignKey("OriginId")
+                        .HasForeignKey("OriginsOriginId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Origin");
+                    b.Navigation("Origins");
                 });
 
             modelBuilder.Entity("Incerc_Site1.Models.Food_Tag", b =>

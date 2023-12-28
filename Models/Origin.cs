@@ -5,7 +5,5 @@
         public int OriginId { get; set; }
 
         public string OriginName { get; set;}
-
-        public IList<Food> Foods { get; set; }
     }
 }

@@ -20,6 +20,13 @@ namespace Incerc_Site1.Contexts
 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Food_Tag>()
+                .HasKey(ft => new { ft.FoodId, ft.TagId });
+        }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=database_test;");//ConnectionString
