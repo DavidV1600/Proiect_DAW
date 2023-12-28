@@ -11,6 +11,8 @@ namespace Incerc_Site1.Models
 
         public double Price { get; set; }
 
+        public int OriginId { get; set; }
+
         public virtual Origin Origin { get; set; }
 
         public string CookTime { get; set; }
