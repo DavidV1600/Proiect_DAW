@@ -1,5 +1,6 @@
 ﻿using Incerc_Site1.Contexts;
 using Incerc_Site1.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,14 +22,45 @@ namespace Incerc_Site1.Controllers
         }
 
         // POST: api/User
-        [HttpPost]
-        public async Task<ActionResult<User>> CreateUser(User user)
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(AuthenticateRequest model)
         {
-            var httpClient = _httpClientFactory.CreateClient("Postman");
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUserById), new { id = user.UserId }, user);
+            var response = _context.Authenticate(model);
+
+            if (response == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(response);
         }
+
+
+        [AllowAnonymous]
+[HttpPost("register")]
+public async Task<ActionResult<User>> Register(UserRegistrationRequest model)
+{
+    // Check if the username already exists
+    if (_context.Users.Any(u => u.Username == model.Username))
+    {
+        return BadRequest(new { message = "Username already exists" });
+    }
+
+    // Create a new user (consider hashing the password)
+    var user = new User
+    {
+        Username = model.Username,
+        Email = model.Email,
+        Password = model.Password // Ideally, you should hash the password
+    };
+
+    // Add the new user to the DbContext
+    _context.Users.Add(user);
+    await _context.SaveChangesAsync();
+
+    // Optionally, you can return the created user (excluding sensitive information like password)
+    return CreatedAtAction(nameof(GetUserById), new { id = user.UserId }, user);
+}
+
 
         // GET: api/Food
         [HttpGet]
