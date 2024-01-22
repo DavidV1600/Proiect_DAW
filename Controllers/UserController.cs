@@ -3,6 +3,7 @@ using Incerc_Site1.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http;
 
 namespace Incerc_Site1.Controllers
 {
@@ -11,16 +12,19 @@ namespace Incerc_Site1.Controllers
     public class UserController : ControllerBase
     {
         private readonly MyAppContext _context;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public UserController(MyAppContext context)
+        public UserController(MyAppContext context, IHttpClientFactory httpClientFactory)
         {
             _context = context;
+            _httpClientFactory = httpClientFactory;
         }
 
         // POST: api/User
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
+            var httpClient = _httpClientFactory.CreateClient("Postman");
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetUserById), new { id = user.UserId }, user);

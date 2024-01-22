@@ -1,5 +1,6 @@
 using Incerc_Site1.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<MyAppContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Obiecte")));
+
+// Configure the HttpClient to ignore SSL certificate errors for development
+builder.Services.AddHttpClient("PostMan")
+    .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
+        {
+            // Always return true to ignore SSL certificate errors (for development/testing only)
+            return true;
+        }
+    });
 
 var app = builder.Build();
 
