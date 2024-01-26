@@ -15,10 +15,11 @@ export class UserService {
     return this.http.get<User[]>(this.apiUrl);
   }
 
-  // Add other CRUD methods as needed
-
   login(credentials: { username: string; password: string }): Observable<any> {
-    // Replace 'authenticate' with the actual endpoint for authentication provided by your backend
     return this.http.post<any>(`${this.apiUrl}/authenticate`, credentials);
+  }
+
+  register(user: { username: string; email: string; password: string; confirmPassword: string }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/register`, user);
   }
 }

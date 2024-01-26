@@ -40,6 +40,7 @@ resetLinkText="Go To Homepage"
         <div>
             <div class="foods-count">{{cart.items.length}}</div>
             <div class="total-price">{{cart.totalPrice}}$</div>
+            <button (click)="checkout()" class="checkout-button">Checkout</button> <!-- Checkout button -->
         </div>
     </div>
 

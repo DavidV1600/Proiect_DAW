@@ -38,4 +38,10 @@ export class CartPageComponent implements OnInit {
     this.cart = this.cartService.getCart();
   }
 
+  checkout(): void {
+    const totalSum = this.cart.totalPrice; // Assuming this is the total sum calculated
+    const paypalUrl = `https://paypal.me/DavidVoinescu/${totalSum}`;
+    window.location.href = paypalUrl; // Redirect to PayPal
+  }
+
 }

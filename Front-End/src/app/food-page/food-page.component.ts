@@ -4,9 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FoodService } from '../services/food/food.service';
 import { CartService } from '../services/cart/cart.service';
 import { NotFoundComponent } from '../not-found/not-found.component';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-food-page',
+  standalone: true,
+  imports: [NgIf, NgFor, NotFoundComponent],
   templateUrl: './food-page.component.html',
   styleUrls: ['./food-page.component.css']
 })

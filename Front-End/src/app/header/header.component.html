@@ -1,12 +1,18 @@
 <header>
-    <div class="container">
-      <a href="#" routerLink="/" class="logo">Food Mine!</a>
-      <nav>
-        <ul>
-          <li><a href="#" routerLink="/cart-page">Cart</a></li>
-          <li class="log"><a href="#" routerLink="/login-page">Login</a></li>
-          <li class="log"><a href="#" routerLink="/stock-page">Stock</a></li><!--Aici tre sa fac cu ngIf e admin-->
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <div class="container">
+    <a routerLink="/" class="logo">Food Mine!</a>
+    <nav>
+      <ul>
+        <li *ngIf="isLoggedIn()"><a routerLink="/cart-page">Cart</a></li>
+        <li class="log" *ngIf="!isLoggedIn()"><a routerLink="/login-page">Login</a></li>
+        <li class="log" *ngIf="isLoggedIn()">
+          <a href="#" (click)="logout()">Logout</a>
+        </li>
+        <!-- Show the Stock button only for logged in admins -->
+        <li class="log" *ngIf="isLoggedIn() && isAdmin()">
+          <a routerLink="/stock-page">Stock</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

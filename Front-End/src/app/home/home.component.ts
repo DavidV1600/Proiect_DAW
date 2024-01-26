@@ -14,7 +14,7 @@ import { take } from 'rxjs';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, NgFor, NgIf],
+  imports: [RouterModule, NgFor, NgIf, NotFoundComponent, TagsComponent, SearchComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'] // Corrected from 'styleUrl' to 'styleUrls'
 })
