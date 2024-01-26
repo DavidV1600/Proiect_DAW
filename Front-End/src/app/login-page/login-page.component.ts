@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { FoodService } from '../services/food/food.service';
 import { take } from 'rxjs';
+import { UserService } from '../services/user/user.service';
 @Component({
   selector: 'app-login-page',
   standalone: true,
@@ -13,7 +14,7 @@ import { take } from 'rxjs';
 })
 export class LoginPageComponent implements OnInit {
 
-constructor(private service : FoodService){}
+constructor(private userService : UserService){}
 
 public loginGroup: FormGroup = new FormGroup(
 {
@@ -25,7 +26,7 @@ public submit(){
   if(this.loginGroup.valid)
   {
   console.log(this.loginGroup);
-  this.service.login(this.loginGroup.value).pipe(take(1)).subscribe((userData : any) => {
+  this.userService.login(this.loginGroup.value).pipe(take(1)).subscribe((userData : any) => {
   
   localStorage.setItem('token', userData.token);
   });

@@ -1,23 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { Tag } from '../shared/models/Tag';
-import { FoodService } from '../services/food/food.service';
-import { RouterLink } from '@angular/router';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { TagService } from '../services/tag/tag.service';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-tags',
   standalone: true,
-  imports: [NgIf, NgFor, RouterModule],//RouterModule pentru RouterLink si astea (mai bine importeaza tot)
+  imports: [CommonModule, RouterModule],
   templateUrl: './tags.component.html',
-  styleUrl: './tags.component.css'
+  styleUrls: ['./tags.component.css']
 })
-export class TagsComponent implements OnInit{
-  tags:Tag[] = [];
+export class TagsComponent implements OnInit {
+  tags: Tag[] = [];
 
-  constructor(private foodService:FoodService) { }
+  constructor(private tagService: TagService) { }
+
   ngOnInit(): void {
-    this.tags = this.foodService.getAllTags();
+    this.tagService.getAll().subscribe({
+      next: (data) => {
+        this.tags = data;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 }
