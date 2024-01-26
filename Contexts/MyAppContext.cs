@@ -32,6 +32,13 @@ namespace Incerc_Site1.Contexts
         //    new User { UserId = 1, Username = "test", Email = "test", Password = "test" }
         //};
 
+        private readonly IJwtUtils _jwtUtils;
+
+        public MyAppContext(IJwtUtils jwtUtils)
+        {
+            _jwtUtils = jwtUtils;
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Food_Tag>()
@@ -54,6 +61,16 @@ namespace Incerc_Site1.Contexts
             var token = user.Email+user.Password;
 
             return new AuthenticateResponse(user, token);
+        }
+
+        public IEnumerable<User> GetAll()
+        {
+            return Users;
+        }
+
+        public User? GetById(int id)
+        {
+            return Users.FirstOrDefault(x => x.UserId == id);
         }
     }
 }
