@@ -1,0 +1,21 @@
+<div class="container">
+    <ul>
+      <li *ngFor="let food of foods">
+        <div>
+          <img [src]="food.imageUrl" [alt]="food.name">
+        </div>
+        <div>
+          {{food.name}}
+        </div>
+        <div>
+            <label for="price">New Price: </label>
+          <input type="number" name="price" id="price">
+          <button class="update-button">Update Price</button>
+        </div>
+        <div>
+          Curent Price: {{food.price}}$
+        </div>
+      </li>
+    </ul>
+</div>
+  
