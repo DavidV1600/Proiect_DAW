@@ -1,0 +1,20 @@
+<div *ngIf="isLoading">
+    <p>Loading...</p>
+  </div>
+  
+  <div *ngIf="!isLoading">
+    <h2>Foods with Selected Tag</h2>
+    <ul *ngIf="foods.length > 0; else noFoodsTemplate">
+      <li *ngFor="let food of foods">
+        <!-- Display properties of each food -->
+        <h3>{{ food.name }}</h3>
+        <p>Price: {{ food.price }}</p>
+        <p>Cook Time: {{ food.cookTime }}</p>
+        <!-- Add more details as needed -->
+      </li>
+    </ul>
+  
+    <ng-template #noFoodsTemplate>
+      <p>No foods found for this tag.</p>
+    </ng-template>
+  </div>

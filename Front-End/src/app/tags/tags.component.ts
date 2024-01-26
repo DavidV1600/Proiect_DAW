@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-tags',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule], // Import RouterModule for RouterLink to work
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.css']
 })
@@ -22,7 +22,7 @@ export class TagsComponent implements OnInit {
         this.tags = data;
       },
       error: (err) => {
-        console.error(err);
+        console.error("Error fetching tags:", err);
       }
     });
   }

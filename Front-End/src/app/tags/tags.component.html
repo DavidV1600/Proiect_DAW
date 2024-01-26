@@ -1,5 +1,5 @@
 <div *ngIf="tags">
-    <a *ngFor="let tag of tags" routerLink="/tag/{tag.tagName}">
-        {{tag.tagName}}
+    <a *ngFor="let tag of tags" [routerLink]="'/tag/' + tag.tagId">
+      {{ tag.tagName }}
     </a>
-</div>
+  </div>

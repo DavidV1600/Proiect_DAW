@@ -1,4 +1,5 @@
 import { Origin } from "./Origin";
+import { Tag } from "./Tag";
 
 export interface Food {
     foodId: number;
@@ -8,5 +9,6 @@ export interface Food {
     origin?: Origin;
     cookTime: string;
     imageUrl?: string;
+    tags?: Tag[];
   }
   

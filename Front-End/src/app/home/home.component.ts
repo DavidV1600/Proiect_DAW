@@ -1,7 +1,8 @@
-import { Component, Input ,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FoodService } from '../services/food/food.service';
 import { NgFor, NgIf } from '@angular/common';
 import { Food } from '../shared/models/Food';
+import { Origin } from '../shared/models/Origin'; // Import Origin model
 import { ActivatedRoute } from '@angular/router';
 import { SearchComponent } from '../search/search.component';
 import { TagsComponent } from '../tags/tags.component';
@@ -16,7 +17,7 @@ import { take } from 'rxjs';
   standalone: true,
   imports: [RouterModule, NgFor, NgIf, NotFoundComponent, TagsComponent, SearchComponent],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'] // Corrected from 'styleUrl' to 'styleUrls'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 
@@ -32,16 +33,30 @@ export class HomeComponent implements OnInit {
       if (params['searchTerm']) {
         this.foodService.getAllFoodsBySearchTerm(params['searchTerm']).subscribe(foods => {
           this.foods = foods;
+          this.assignOriginsToFood(); // Call the method to assign origins
         });
       } else if (params['tag']) {
         this.foodService.getAllFoodsByTag(params['tag']).subscribe(foods => {
           this.foods = foods;
+          this.assignOriginsToFood(); // Call the method to assign origins
         });
       } else {
         this.foodService.getAll().subscribe(foods => {
           this.foods = foods;
+          this.assignOriginsToFood(); // Call the method to assign origins
         });
       }
     });
+  }
+
+  private assignOriginsToFood(): void {
+    // Iterate through the foods and fetch origins for each food's originId
+    for (const food of this.foods) {
+      if (food.originId) {
+        this.foodService.getOriginById(food.originId).subscribe(origin => {
+          food.origin = origin; // Assign the fetched origin to the food
+        });
+      }
+    }
   }
 }

@@ -6,6 +6,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { StockComponent } from './stock/stock.component';
 import { authGuard } from './guards/auth-guard.guard';
+import { FoodsByTagComponent } from './foods-by-tag/foods-by-tag.component';
 
 export const routes: Routes = [
     {path:"", component:HomeComponent},
@@ -15,5 +16,6 @@ export const routes: Routes = [
     {path:'cart-page', component:CartPageComponent},
     {path:'login-page', component:LoginPageComponent},
     {path:'register-page', component:RegisterPageComponent},
-    {path:'stock-page', component:StockComponent, canActivate: [authGuard]}
+    {path:'stock-page', component:StockComponent, canActivate: [authGuard]},
+    { path: 'tag/:tagId', component: FoodsByTagComponent },
 ];

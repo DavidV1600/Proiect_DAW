@@ -40,6 +40,39 @@ namespace Incerc_Site1.Controllers
             return foodTag;
         }
 
+                [HttpGet("foods/{tagId}")]
+        public async Task<ActionResult<IEnumerable<Food>>> GetFoodsByTagId(int tagId)
+        {
+            var foods = await _context.FoodTags
+                .Where(ft => ft.TagId == tagId)
+                .Select(ft => ft.Food)
+                .ToListAsync();
+
+            if (!foods.Any())
+            {
+                return NotFound();
+            }
+
+            return foods;
+        }
+
+        // GET: api/FoodTag/tags/5
+        [HttpGet("tags/{foodId}")]
+        public async Task<ActionResult<IEnumerable<Tag>>> GetTagsByFoodId(int foodId)
+        {
+            var tags = await _context.FoodTags
+                .Where(ft => ft.FoodId == foodId)
+                .Select(ft => ft.Tag)
+                .ToListAsync();
+
+            if (!tags.Any())
+            {
+                return NotFound();
+            }
+
+            return tags;
+        }
+
         // POST: api/FoodTag
         [HttpPost]
         public async Task<ActionResult<Food_Tag>> CreateFoodTag(Food_Tag foodTag)
