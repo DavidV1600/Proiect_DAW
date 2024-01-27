@@ -54,6 +54,16 @@ namespace Incerc_Site1.Controllers
             return food;
         }
 
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<Food>>> SearchFoods(string searchTerm)
+        {
+            var foods = await _context.Foods
+                .Where(f => f.Name.Contains(searchTerm))
+                .ToListAsync();
+
+            return foods;
+        }
+
         // PUT: api/Food/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateFood(int id, Food food)

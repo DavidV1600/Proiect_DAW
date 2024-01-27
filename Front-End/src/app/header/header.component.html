@@ -6,7 +6,7 @@
         <li *ngIf="isLoggedIn()"><a routerLink="/cart-page">Cart</a></li>
         <li class="log" *ngIf="!isLoggedIn()"><a routerLink="/login-page">Login</a></li>
         <li class="log" *ngIf="isLoggedIn()">
-          <a href="#" (click)="logout()">Logout</a>
+          <a href="" (click)="logout()">Logout</a>
         </li>
         <!-- Show the Stock button only for logged in admins -->
         <li class="log" *ngIf="isLoggedIn() && isAdmin()">

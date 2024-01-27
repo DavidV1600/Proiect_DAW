@@ -1,0 +1,9 @@
+<ul *ngIf="foods.length > 0">
+    <li *ngFor="let food of foods">
+      <!-- Food item display -->
+      <span>{{ food.name }}</span>
+      <!-- Add more food details here -->
+    </li>
+  </ul>
+  <div *ngIf="foods.length === 0">No foods found.</div>
+  

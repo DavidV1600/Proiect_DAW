@@ -18,7 +18,7 @@ export class FoodService {
 
   getAll(): Observable<Food[]> {
     // Fetch food items along with their origins
-    return this.http.get<Food[]>(`${this.apiUrl}?include=origin`);
+    return this.http.get<Food[]>(`${this.apiUrl}`);
   }
 
   getById(id: number): Observable<Food> {
@@ -28,6 +28,11 @@ export class FoodService {
   updateFoodPriceById(foodId: number, newPrice: number): Observable<Food> {
     // Make sure to match the API endpoint and body structure
     return this.http.put<Food>(`${this.apiUrl}/${foodId}/price`, newPrice);
+  }
+
+  searchFoods(searchTerm: string): Observable<Food[]> {
+    let params = new HttpParams().set('searchTerm', searchTerm);
+    return this.http.get<Food[]>(`${this.apiUrl}/search`, { params });
   }
 
   getAllFoodsBySearchTerm(searchTerm: string): Observable<Food[]> {
