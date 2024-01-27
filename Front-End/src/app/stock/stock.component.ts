@@ -27,26 +27,25 @@ export class StockComponent implements OnInit {
   }
 
   updatePrice(foodId: number, newPrice: string): void {
-    // Convert newPrice to a number before sending it to the server
-    const price = Number(newPrice);
-    
-    // Check if the price is a valid number and not NaN
-    if (!isNaN(price)) {
+    const price = parseFloat(newPrice); // Convert string to float
+
+    if (!isNaN(price) && price > 0) { // Check for a valid number greater than 0
       this.foodService.updateFoodPriceById(foodId, price).subscribe({
         next: (updatedFood) => {
-          // Find and update the food item in your local array with the new price
-          const index = this.foods.findIndex(food => food.foodId === updatedFood.foodId);
+          // Assuming the response contains the updated food object
+          const index = this.foods.findIndex(food => food.foodId === foodId);
           if (index !== -1) {
-            this.foods[index].price = updatedFood.price;
+            this.foods[index].price = updatedFood.price; // Update the price in the local array
           }
         },
-        error: (err) => {
-          console.error(err);
+        error: (error) => {
+          // Handle error response
+          console.error('Error updating price:', error);
         }
       });
     } else {
-      // Handle invalid number input
-      console.error('Invalid price input');
+      // Handle invalid price input
+      alert('Please enter a valid price.');
     }
   }
 }

@@ -69,6 +69,42 @@ namespace Incerc_Site1.Controllers
             return NoContent();
         }
 
+                [HttpPut("{id}/price")]
+        public async Task<ActionResult> UpdateFoodPrice(int id, [FromBody] double newPrice)
+        {
+            var food = await _context.Foods.FindAsync(id);
+            if (food == null)
+            {
+                return NotFound();
+            }
+
+            if (newPrice < 0) // Optional: Add any validation you need
+            {
+                return BadRequest("Price cannot be negative.");
+            }
+
+            food.Price = newPrice;
+            _context.Entry(food).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!FoodExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent(); // HTTP 204
+        }
+
         // DELETE: api/Food/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFood(int id)

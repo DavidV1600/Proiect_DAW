@@ -26,7 +26,8 @@ export class FoodService {
   }
 
   updateFoodPriceById(foodId: number, newPrice: number): Observable<Food> {
-    return this.http.put<Food>(`${this.apiUrl}/${foodId}`, { price: newPrice });
+    // Make sure to match the API endpoint and body structure
+    return this.http.put<Food>(`${this.apiUrl}/${foodId}/price`, newPrice);
   }
 
   getAllFoodsBySearchTerm(searchTerm: string): Observable<Food[]> {
@@ -57,6 +58,8 @@ export class FoodService {
     // Correct endpoint as per your API design
     return this.http.get<Food[]>(`${this.foodTagApiUrl}/foods/${tagId}`);
   }
+
+  
   
 }
 

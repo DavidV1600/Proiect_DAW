@@ -57,4 +57,10 @@ export class FoodPageComponent implements OnInit {
       this.router.navigateByUrl('/cart-page');
     }
   }
+
+  isLoggedIn(): boolean {
+    // Check for user token or user data in local storage
+    // For example, if you store a token:
+    return !!localStorage.getItem('token');
+  }
 }

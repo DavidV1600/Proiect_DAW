@@ -23,6 +23,6 @@
             <span *ngFor="let tag of tags" class="tag">{{ tag.tagName }}</span>
             <span *ngIf="tags.length === 0">No tags available</span>
           </div>
-        <button (click)="addToCart()">Add To Cart</button>
+        <button *ngIf="isLoggedIn()" (click)="addToCart()">Add To Cart</button>
     </div>
 </div>
