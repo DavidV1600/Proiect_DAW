@@ -98,3 +98,25 @@ img{
     opacity: .9;
     cursor: pointer;
 }
+
+/* ... existing styles ... */
+
+.details .origins > span,
+.details .tags > span {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    margin: 0.5rem;
+    border-radius: 2rem;
+    background-color: #f0f8ff; /* aliceblue */
+    display: inline-block; /* ensures that the span behaves like a block with width and height */
+    margin-right: 10px; /* adds space between tags */
+    white-space: nowrap; /* prevents wrapping inside the tag */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* optional: adds a subtle shadow for depth */
+}
+
+/* If you want a different background for tags */
+.details .tags > span {
+    background-color: #e6e6fa; /* lavender */
+}
+
+/* ... other styles ... */

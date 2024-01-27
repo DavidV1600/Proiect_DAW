@@ -1,39 +1,62 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterModule } from '@angular/router';
-import { FoodService } from '../services/food/food.service';
-import { take } from 'rxjs';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { catchError, of, take } from 'rxjs';
+import { UserService } from '../services/user/user.service';
+import { NgIf } from '@angular/common';
+
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [RouterModule,ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIf, RouterModule],
   templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.css'
+  styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
 
-constructor(private service : FoodService){}
+  public loginGroup: FormGroup;
+  public errorMessage: string = '';
 
-public loginGroup: FormGroup = new FormGroup(
-{
-  username: new FormControl('', Validators.required),
-  password: new FormControl('', Validators.required)
-});
-
-public submit(){
-  if(this.loginGroup.valid)
-  {
-  console.log(this.loginGroup);
-  this.service.login(this.loginGroup.value).pipe(take(1)).subscribe((userData : any) => {
-  
-  localStorage.setItem('token', userData.token);
-  });
-  //tre sa iau tokenul din postman si sa il salvez in local storage
+  constructor(
+    private userService: UserService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
+    this.loginGroup = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
   }
-}
 
+  public submit(): void {
+    this.errorMessage = ''; // Reset the error message on a new submission
+    
+    if (this.loginGroup.valid) {
+      this.userService.login(this.loginGroup.value).pipe(
+        take(1),
+        catchError((error) => {
+          if (error.status === 401 || error.error?.message) {
+            // Use the server-provided error message if available, otherwise set a default message
+            this.errorMessage = error.error?.message || 'Invalid username or password. Please try again.';
+          } else {
+            this.errorMessage = 'An error occurred. Please try again later.';
+          }
+          return of(null);
+        })
+      ).subscribe((userData: any) => {
+        if (userData && userData.token) {
+          localStorage.setItem('token', userData.token);
+          this.router.navigate(['']); // Navigate to the home route on success
+        } else {
+          this.errorMessage = 'Login failed. Please try again.';
+        }
+      });
+    } else {
+      this.errorMessage = 'Please fill in all fields.';
+    }
+  }
 
   ngOnInit(): void {
+    // Any initialization logic if needed
   }
 }

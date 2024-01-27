@@ -72,3 +72,11 @@ li a:hover{
     color:#414141;
     margin-top: .7rem;
 }
+
+img {
+    width: 320px; /* Adjust the width as needed */
+    height: 240px; /* Adjust the height as needed */
+    object-fit: cover; /* This will cover the area without stretching the image */
+    border-radius: 0.5em; /* Optional: if you want rounded corners */
+  }
+  

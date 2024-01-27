@@ -1,9 +1,14 @@
-export class Food{
-    id!:number;
-    name!:string;
-    price!:number;
-    tags?:string[];
-    imageUrl!:string;
-    origins!:string[];
-    cookTime!:string;
-}
+import { Origin } from "./Origin";
+import { Tag } from "./Tag";
+
+export interface Food {
+    foodId: number;
+    name: string;
+    price: number;
+    originId: number;
+    origin?: Origin;
+    cookTime: string;
+    imageUrl?: string;
+    tags?: Tag[];
+  }
+  

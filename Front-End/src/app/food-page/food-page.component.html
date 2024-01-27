@@ -1,5 +1,4 @@
-<app-not-found [visible]="!food" notFoundMessage="Product Not Found!"
-resetLinkText="Back To Homepage"></app-not-found>
+<app-not-found [visible]="!food" notFoundMessage="Product Not Found!" resetLinkText="Back To Homepage"></app-not-found>
 <div *ngIf="food" class="container">
     <img [src]="food.imageUrl" [alt]="food.name" />
     <div class="details">
@@ -9,19 +8,21 @@ resetLinkText="Back To Homepage"></app-not-found>
             </span>
         </div>
         <div class="origins">
-            <span *ngFor="let origin of food.origins">
-                {{origin}}
-            </span>
+            <span *ngIf="origin">{{origin.originName}}</span>
+            <span *ngIf="!origin">Origin not available</span>
         </div>
         <div class="cook-time">
             <span>
                 Time to cook about <strong>{{food.cookTime}}</strong> minutes
             </span>
         </div>
-
         <div class="price">
             <span>{{food.price}}$</span>
-        </div>    
-    <button (click)="addToCart()">Add To Cart</button>
-</div>
+        </div>
+        <div class="tags">
+            <span *ngFor="let tag of tags" class="tag">{{ tag.tagName }}</span>
+            <span *ngIf="tags.length === 0">No tags available</span>
+          </div>
+        <button *ngIf="isLoggedIn()" (click)="addToCart()">Add To Cart</button>
+    </div>
 </div>

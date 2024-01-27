@@ -17,6 +17,6 @@ namespace Incerc_Site1.Models
 
         public string CookTime { get; set; }
 
-//        public string imageUrl { get; set; }
+        public string? imageUrl { get; set; }
     }
 }

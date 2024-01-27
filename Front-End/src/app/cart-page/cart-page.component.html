@@ -10,7 +10,7 @@ resetLinkText="Go To Homepage"
                 <img [src]="cartItem.food.imageUrl" [alt]="cartItem.food.name">
             </div>
             <div>
-                <a routerLink="/food/{{cartItem.food.id}}">
+                <a routerLink="/food/{{cartItem.food.foodId}}">
                     {{cartItem.food.name}}
                 </a>
             </div>
@@ -24,7 +24,6 @@ resetLinkText="Go To Homepage"
                     <option>5</option>
                 </select>
             </div>
-
             <div>
                 {{cartItem.price}}$
             </div>
@@ -41,6 +40,7 @@ resetLinkText="Go To Homepage"
         <div>
             <div class="foods-count">{{cart.items.length}}</div>
             <div class="total-price">{{cart.totalPrice}}$</div>
+            <button (click)="checkout()" class="checkout-button">Checkout</button> <!-- Checkout button -->
         </div>
     </div>
 

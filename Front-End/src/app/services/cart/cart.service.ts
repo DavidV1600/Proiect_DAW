@@ -10,21 +10,21 @@ export class CartService {
   private cart:Cart = new Cart();
 
   addToCart(food: Food):void{
-    let cartItem = this.cart.items.find(item => item.food.id === food.id);
+    let cartItem = this.cart.items.find(item => item.food.foodId === food.foodId);
     if(cartItem)
     {
-      this.changeQuantity(food.id, cartItem.quantity + 1);
+      this.changeQuantity(food.foodId, cartItem.quantity + 1);
       return;
     }
     this.cart.items.push(new CartItem(food));
   }
   removeFromCart(foodId:number): void{
     this.cart.items = 
-    this.cart.items.filter(item => item.food.id != foodId);
+    this.cart.items.filter(item => item.food.foodId != foodId);
   }
 
   changeQuantity(foodId:number, quantity:number){
-    let cartItem = this.cart.items.find(item => item.food.id === foodId);
+    let cartItem = this.cart.items.find(item => item.food.foodId === foodId);
     if(!cartItem) return;
     cartItem.quantity = quantity;
   }

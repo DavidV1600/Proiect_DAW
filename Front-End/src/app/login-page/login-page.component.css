@@ -46,3 +46,14 @@
       .login-button:hover {
         background-color: #e72929;
       }
+
+      /* Add your existing styles here */
+
+/* Style for the error message */
+/* Add your existing styles here */
+
+/* Style for the error message */
+.error-message {
+  color: #ff4d4f;
+  margin-top: 10px;
+}
