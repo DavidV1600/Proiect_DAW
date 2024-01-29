@@ -9,21 +9,31 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    // Call the method to check if the user is logged in with the specific token
-    if (this.isLoggedInWithSpecificToken("Eu4Eu4")) {
-      return true;
+    // Check if the user is logged in with any token
+    if (this.isLoggedIn()) {
+      // Check if the user has the required token for the stock-page
+      if (route.data && route.data['requiredToken'] === "Eu4Eu4") {
+        const token = localStorage.getItem('token');
+        if (token === "Eu4Eu4") {
+          return true; // User has the required token
+        } else {
+          // User does not have the required token, navigate to the login page
+          this.router.navigate(['/login-page']);
+          return false;
+        }
+      }
+      return true; // User is logged in
     } else {
-      // If the token is not "Eu4Eu4", navigate to the login page
+      // If the user is not logged in, navigate to the login page
       this.router.navigate(['/login-page']);
       return false;
     }
   }
 
-  private isLoggedInWithSpecificToken(requiredToken: string): boolean {
-    // Retrieve the token from storage
+  private isLoggedIn(): boolean {
+    // Check if the user is logged in (you can implement this logic)
+    // For example, you can check if there is a user session or token in localStorage
     const token = localStorage.getItem('token');
-
-    // Check if the token matches the required token
-    return token === requiredToken;
+    return !!token; // Returns true if a token exists, you can customize this logic
   }
 }

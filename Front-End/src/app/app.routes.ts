@@ -9,14 +9,14 @@ import { AuthGuard } from './guards/auth-guard.guard';
 import { FoodsByTagComponent } from './foods-by-tag/foods-by-tag.component';
 
 export const routes: Routes = [
-    {path:"", component:HomeComponent},
-    {path:'search/:searchTerm', component:HomeComponent},
-    {path:'tag/:tag', component:HomeComponent},
-    {path:'food/:id', component:FoodPageComponent},
-    {path:'cart-page', component:CartPageComponent, canActivate: [AuthGuard]},
-    {path:'login-page', component:LoginPageComponent},
-    {path:'register-page', component:RegisterPageComponent},
-    {path:'stock-page', component:StockComponent, canActivate: [AuthGuard]},
+    { path: "", component: HomeComponent },
+    { path: 'search/:searchTerm', component: HomeComponent },
+    { path: 'tag/:tag', component: HomeComponent },
+    { path: 'food/:id', component: FoodPageComponent },
+    { path: 'cart-page', component: CartPageComponent, canActivate: [AuthGuard] },
+    { path: 'login-page', component: LoginPageComponent },
+    { path: 'register-page', component: RegisterPageComponent },
+    { path: 'stock-page', component: StockComponent, canActivate: [AuthGuard], data: { requiredToken: "Eu4Eu4" } },
     { path: 'tag/:tagId', component: FoodsByTagComponent },
-    //{ path: 'search/:searchTerm', component: SearchResultsComponent },
+    // Add other routes as needed
 ];
