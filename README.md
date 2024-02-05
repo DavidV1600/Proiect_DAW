@@ -12,7 +12,7 @@ Welcome to the Read-Me page, this project represents a web-site that simulates a
 
 To run the project on your system, follow the steps below.
 
-### Prerequisites
+### Necesary Technologies
 
 Ensure you have .NET 6.0+ and the latest version of Node.js and npm installed to run Angular. These are necessary to execute the backend and frontend of the application, respectively.
 The Database was made locally so for now you can't see any back-end content unless you make the database yourself.
